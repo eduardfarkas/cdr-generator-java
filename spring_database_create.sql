@@ -1,0 +1,10 @@
+create sequence hibernate_sequence start with 1 increment by 1;
+create table authors (id integer not null, age integer, name varchar(255), primary key (id));
+create table books (isbn varchar(255) not null, name varchar(255), pages integer not null, author_id integer not null, primary key (isbn));
+create table cdr (id bigint not null, created timestamp, description varchar(255), name varchar(255), primary key (id));
+alter table books add constraint FKfjixh2vym2cvfj3ufxj91jem7 foreign key (author_id) references authors;
+create sequence hibernate_sequence start with 1 increment by 1;
+create table authors (id integer not null, age integer, name varchar(255), primary key (id));
+create table books (isbn varchar(255) not null, name varchar(255), pages integer not null, author_id integer not null, primary key (isbn));
+create table cdr (id bigint not null, created timestamp, description varchar(255), name varchar(255), primary key (id));
+alter table books add constraint FKfjixh2vym2cvfj3ufxj91jem7 foreign key (author_id) references authors;
