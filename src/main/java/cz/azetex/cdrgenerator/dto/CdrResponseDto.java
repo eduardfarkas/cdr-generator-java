@@ -9,6 +9,8 @@ import java.util.List;
 @Getter
 @Setter
 public class CdrResponseDto {
-    private List<CdrDto> cdrs = new ArrayList<>();
+
+    private ResponseInformationDto meta;
+    private List<CdrDto> data = new ArrayList<>();
 
 }

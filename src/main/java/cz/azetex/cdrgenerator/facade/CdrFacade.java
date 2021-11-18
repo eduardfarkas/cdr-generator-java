@@ -1,7 +1,8 @@
 package cz.azetex.cdrgenerator.facade;
 
 import cz.azetex.cdrgenerator.dto.CdrResponseDto;
-import cz.azetex.cdrgenerator.mapping.CdrMappingService;
+import cz.azetex.cdrgenerator.dto.ResponseInformationDto;
+import cz.azetex.cdrgenerator.mapping.CdrMapping;
 import cz.azetex.cdrgenerator.model.Cdr;
 import cz.azetex.cdrgenerator.services.CdrServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -15,14 +16,14 @@ import java.util.Optional;
 public class CdrFacade {
 
     private final CdrServiceImpl cdrService;
-    private final CdrMappingService cdrMappingService;
+    private final CdrMapping cdrMapping;
 
     public CdrResponseDto getCdrById(Long id) {
         Optional<Cdr> cdr = cdrService.findById(id);
         CdrResponseDto cdrResponseDto = new CdrResponseDto();
 
         if(cdr.isPresent()) {
-            cdrResponseDto.getCdrs().add(cdrMappingService.createCdrDto(cdr.get()));
+            cdrResponseDto.getData().add(cdrMapping.createCdrDto(cdr.get()));
         }
         return cdrResponseDto;
     }
@@ -32,9 +33,11 @@ public class CdrFacade {
 
         PageRequest pageable = PageRequest.of(page, pageSize);
 
+        responseDto.setMeta(new ResponseInformationDto("halo"));
+
         cdrService.findCdrs(operatorTypeName, dataTypeName, pageable).stream()
-                .map(cdrMappingService::createCdrDto)
-                .forEach(responseDto.getCdrs()::add);
+                .map(cdrMapping::createCdrDto)
+                .forEach(responseDto.getData()::add);
 
         return responseDto;
     }

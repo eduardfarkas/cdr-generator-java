@@ -33,9 +33,22 @@ public class CdrController {
         return cdrFacade.getCdrById(id);
     }
 
+    @PutMapping("/cdrs/{id}/update")
+//    public CdrResponseDto updateCdr(parametry cdr) {
+    public ResponseEntity<CdrResponseDto> updateCdr() {
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/cdrs/create")
+//    public CdrResponseDto createCdr(parametry cdr) {
+    public ResponseEntity<CdrResponseDto> createCdr() {
+
+        return ResponseEntity.ok().build();
+    }
+
     @DeleteMapping("/cdrs/{id}")
     public ResponseEntity<CdrResponseDto> deleteCdrById(@PathVariable Long id) {
         CdrResponseDto cdrResponseDto = new CdrResponseDto();
-        return ResponseEntity.ok(cdrResponseDto);
+        return ResponseEntity.ok().build();
     }
 }
