@@ -12,8 +12,8 @@ import java.util.Date;
 @ToString
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "groups")
+@Table(name = "groups",
+        uniqueConstraints = { @UniqueConstraint(name = "UniqueGroupName", columnNames = { "name" }) })
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

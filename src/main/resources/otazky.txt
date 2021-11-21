@@ -1,0 +1,5 @@
+koncept "mapping"
+    - kde se generuje implementace *mappingImpl? Našel jsem to akorát v targetu
+
+interface s vnořenou abstraktní třídou
+    - výhody?

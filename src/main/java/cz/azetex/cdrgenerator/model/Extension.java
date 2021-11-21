@@ -12,8 +12,8 @@ import java.util.Date;
 @ToString
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "extensions")
+@Table(name = "extensions",
+        uniqueConstraints = { @UniqueConstraint(name = "UniqueExtensionName", columnNames = { "name" }) })
 public class Extension {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

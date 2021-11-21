@@ -15,11 +15,11 @@ public interface CdrRepository extends JpaRepository<Cdr, Long> {
 
     @Query(value = "select c " +
                    "from Cdr c " +
-                   "join fetch c.operator o " +
+                   "join fetch c.operatorType o " +
                    "where o.name = ?1",
             countQuery = "select count(c) " +
                          "from Cdr c " +
-                         "join c.operator o " +
+                         "join c.operatorType o " +
                          "where o.name = ?1")
     Page<Cdr> findCdrsByOperatorName(String operatorTypeName, Pageable pageable);
 
@@ -35,13 +35,13 @@ public interface CdrRepository extends JpaRepository<Cdr, Long> {
 
     @Query(value = "select c " +
                    "from Cdr c " +
-                   "join fetch c.operator o " +
+                   "join fetch c.operatorType o " +
                    "join fetch c.dataType d " +
                    "where o.name = ?1 and " +
                    "      d.name = ?2",
             countQuery = "select count(c) " +
                          "from Cdr c " +
-                         "join c.operator o " +
+                         "join c.operatorType o " +
                          "join c.dataType d " +
                          "where o.name = ?1 and " +
                          "      d.name = ?2")

@@ -1,14 +1,12 @@
 package cz.azetex.cdrgenerator.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseInformationDto {
-    private String test;
 
-    public ResponseInformationDto(String test) {
-        this.test = test;
-    }
+    protected PaginationDto pagination;
+
 }

@@ -9,18 +9,18 @@ import java.util.Date;
 
 @Entity
 
-@ToString
-@Getter
-@Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Data
+@NoArgsConstructor
 @Table(name = "cdrs")
+//@Table(name = "cdrs",
+//        uniqueConstraints = { @UniqueConstraint(name = "UniqueCdr", columnNames = { "charging_class", "charging_code", "operator_type_id", "data_type_id", "extension_id", "is_used" }) })
 public class Cdr {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private OperatorType operator;
+    private OperatorType operatorType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private DataType dataType;
@@ -48,4 +48,5 @@ public class Cdr {
 
     @UpdateTimestamp
     private Date changed;
+
 }

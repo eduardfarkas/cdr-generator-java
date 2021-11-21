@@ -1,45 +1,62 @@
 package cz.azetex.cdrgenerator.facade;
 
-import cz.azetex.cdrgenerator.dto.CdrResponseDto;
+import cz.azetex.cdrgenerator.dto.PaginationDto;
+import cz.azetex.cdrgenerator.dto.ResponseDto;
 import cz.azetex.cdrgenerator.dto.ResponseInformationDto;
-import cz.azetex.cdrgenerator.mapping.CdrMapping;
+import cz.azetex.cdrgenerator.error.CdrNotFoundException;
+import cz.azetex.cdrgenerator.mapping.enumeration.CdrMapping;
 import cz.azetex.cdrgenerator.model.Cdr;
-import cz.azetex.cdrgenerator.services.CdrServiceImpl;
+import cz.azetex.cdrgenerator.services.CdrService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class CdrFacade {
 
-    private final CdrServiceImpl cdrService;
+    private final CdrService cdrService;
     private final CdrMapping cdrMapping;
 
-    public CdrResponseDto getCdrById(Long id) {
-        Optional<Cdr> cdr = cdrService.findById(id);
-        CdrResponseDto cdrResponseDto = new CdrResponseDto();
+    public ResponseDto getCdrById(Long id) {
+        Cdr cdr = cdrService.findById(id)
+                .orElseThrow(() -> new CdrNotFoundException("Cdr with id '" + id + "' was not found"));
 
-        if(cdr.isPresent()) {
-            cdrResponseDto.getData().add(cdrMapping.createCdrDto(cdr.get()));
-        }
-        return cdrResponseDto;
-    }
-
-    public CdrResponseDto getCdrs(String operatorTypeName, String dataTypeName, int page, int pageSize) {
-        CdrResponseDto responseDto = new CdrResponseDto();
-
-        PageRequest pageable = PageRequest.of(page, pageSize);
-
-        responseDto.setMeta(new ResponseInformationDto("halo"));
-
-        cdrService.findCdrs(operatorTypeName, dataTypeName, pageable).stream()
-                .map(cdrMapping::createCdrDto)
-                .forEach(responseDto.getData()::add);
+        ResponseDto responseDto = new ResponseDto();
+        responseDto.getData().getCdrs().add(cdrMapping.toDto(cdr));
 
         return responseDto;
     }
 
+    public ResponseDto getCdrs(String operatorTypeName, String dataTypeName, int page, int pageSize) {
+        ResponseDto responseDto = new ResponseDto();
+
+        PageRequest pageable = PageRequest.of(page, pageSize);
+
+        Page<Cdr> result = cdrService.findCdrs(operatorTypeName, dataTypeName, pageable);
+        result.stream()
+                .map(cdrMapping::toDto)
+                .forEach(responseDto.getData().getCdrs()::add);
+
+        setPageInfo(responseDto, result);
+
+        return responseDto;
+    }
+
+    public static void setPageInfo(ResponseDto responseDto, Page<?> pageResult) {
+        PaginationDto paginationDto = new PaginationDto();
+        paginationDto.setTotalRecords((int) pageResult.getTotalElements());
+        paginationDto.setTotalPages(pageResult.getTotalPages());
+        Pageable pageable = pageResult.getPageable();
+        if (pageable.isPaged()) {
+            paginationDto.setPage(pageable.getPageNumber());
+            paginationDto.setPageSize(pageable.getPageSize());
+        }
+
+        ResponseInformationDto responseInformationDto = new ResponseInformationDto();
+        responseInformationDto.setPagination(paginationDto);
+        responseDto.setMeta(responseInformationDto);
+    }
 }
