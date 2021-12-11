@@ -1,0 +1,871 @@
+{
+	"info": {
+		"_postman_id": "bf442ee8-2a98-463c-8580-98eb19ef4a0b",
+		"name": "cdr-generator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "cdr",
+			"item": [
+				{
+					"name": "get cdrs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/cdrs?page=0&pageSize=500",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"cdrs"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "500"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get cdr by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "cs",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/cdrs/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"cdrs",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "11330"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get cdrs by condition",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/cdrs?page=0&pageSize=50&operatorTypeName=m2m&dataTypeName=data",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"cdrs"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "50"
+								},
+								{
+									"key": "operatorTypeName",
+									"value": "m2m",
+									"description": "nepovinné"
+								},
+								{
+									"key": "dataTypeName",
+									"value": "data",
+									"description": "nepovinné"
+								},
+								{
+									"key": "chargingClass",
+									"value": "02",
+									"description": "nepovinné",
+									"disabled": true
+								},
+								{
+									"key": "chargingCode",
+									"value": "001",
+									"description": "nepovinné",
+									"disabled": true
+								},
+								{
+									"key": "isUsed",
+									"value": "false",
+									"description": "nepovinné",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create cdr",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "cs",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/cdrs?name=test1s&description=test1&value=test value 1&groupId=10001&extensionId=10001&dataTypeId=10001&operatorTypeId=10001&chargingClass=50&chargingCode=300&isUsed=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"cdrs"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "test1s",
+									"description": "must be unique"
+								},
+								{
+									"key": "description",
+									"value": "test1",
+									"description": "string"
+								},
+								{
+									"key": "value",
+									"value": "test value 1",
+									"description": "string"
+								},
+								{
+									"key": "groupId",
+									"value": "10001",
+									"description": "číslo"
+								},
+								{
+									"key": "extensionId",
+									"value": "10001",
+									"description": "číslo"
+								},
+								{
+									"key": "dataTypeId",
+									"value": "10001",
+									"description": "číslo"
+								},
+								{
+									"key": "operatorTypeId",
+									"value": "10001",
+									"description": "číslo"
+								},
+								{
+									"key": "chargingClass",
+									"value": "50",
+									"description": "string"
+								},
+								{
+									"key": "chargingCode",
+									"value": "300",
+									"description": "string"
+								},
+								{
+									"key": "isUsed",
+									"value": "true",
+									"description": "boolean"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update cdr",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "cs",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/cdrs/:id?name=test1s&description=xxxxx&value=xxxxxxxxxxxxx&groupId=10002&extensionId=10002&dataTypeId=10002&operatorTypeId=10002&chargingClass=50&chargingCode=500&isUsed=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"cdrs",
+								":id"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "test1s",
+									"description": "must be unique"
+								},
+								{
+									"key": "description",
+									"value": "xxxxx"
+								},
+								{
+									"key": "value",
+									"value": "xxxxxxxxxxxxx"
+								},
+								{
+									"key": "groupId",
+									"value": "10002"
+								},
+								{
+									"key": "extensionId",
+									"value": "10002"
+								},
+								{
+									"key": "dataTypeId",
+									"value": "10002"
+								},
+								{
+									"key": "operatorTypeId",
+									"value": "10002"
+								},
+								{
+									"key": "chargingClass",
+									"value": "50"
+								},
+								{
+									"key": "chargingCode",
+									"value": "500"
+								},
+								{
+									"key": "isUsed",
+									"value": "true"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "10001"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete cdr by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "cs",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/cdrs/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"cdrs",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "10001"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "operator-type",
+			"item": [
+				{
+					"name": "get operatorTypes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "cs",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/operator-types",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"operator-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create operatorType",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "cs",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/operator-types?name=test1s",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"operator-types"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "test1s",
+									"description": "must be unique"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update operatorType",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "cs",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/operator-types/:id?name=test1s",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"operator-types",
+								":id"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "test1s",
+									"description": "must be unique"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "10001"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete operatorType by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "cs",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/operator-types/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"operator-types",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "10001"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "group",
+			"item": [
+				{
+					"name": "get groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/groups",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create group",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "cs",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/groups?name=test1s",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"groups"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "test1s",
+									"description": "must be unique"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update group",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "cs",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/groups/:id?name=test1sxxx123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"groups",
+								":id"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "test1sxxx123",
+									"description": "must be unique"
+								},
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "10001"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete group by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "cs",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/groups/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"groups",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "10001"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "extension",
+			"item": [
+				{
+					"name": "get extension",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/extensions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"extensions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create extension",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/extensions?name=test1s&description=desc1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"extensions"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "test1s",
+									"description": "must be unique"
+								},
+								{
+									"key": "description",
+									"value": "desc1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update extension",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/extensions/:id?name=test1s&description=desc1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"extensions",
+								":id"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "test1s",
+									"description": "must be unique"
+								},
+								{
+									"key": "description",
+									"value": "desc1"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "10001"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete extension by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "cs",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/extensions/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"extensions",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "10001"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "data-type",
+			"item": [
+				{
+					"name": "get dataTypes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/data-types",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"data-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create dataType",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "cs",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/data-types?name=test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"data-types"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "test",
+									"description": "must be unique"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update dataType",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "cs",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/data-types/:id?name=test1ss",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"data-types",
+								":id"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "test1ss",
+									"description": "must be unique"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "10001"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete dataType by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "cs",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/data-types/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"data-types",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
