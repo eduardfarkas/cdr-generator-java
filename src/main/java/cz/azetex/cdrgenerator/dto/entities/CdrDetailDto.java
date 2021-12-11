@@ -1,11 +1,11 @@
-package cz.azetex.cdrgenerator.dto;
+package cz.azetex.cdrgenerator.dto.entities;
 
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class CdrDto {
+public class CdrDetailDto {
 
     protected Long id;
     protected String name;
@@ -13,10 +13,10 @@ public class CdrDto {
     protected String value;
     protected String chargingClass;
     protected String chargingCode;
-    protected String operatorTypeName;
-    protected String dataTypeName;
-    protected String extensionName;
-    protected String groupName;
+    protected OperatorTypeDto operatorType;
+    protected DataTypeDto dataType;
+    protected ExtensionDto extension;
+    protected GroupDto group;
     protected Boolean isUsed;
     protected Date created;
     protected Date changed;

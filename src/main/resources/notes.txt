@@ -1,27 +1,2 @@
-všechny cdr
-    get     api/cdrs
-
-konkrétní cdr
-    get     api/cdrs/{id}
-smazání
-    delete  api/cdrs/{id}
-update
-    put     api/cdrs/{id}
-
-
-
-api/cdrs/sms?operator=prepaid&extension=xxx
-api/cdrs/prepaid/sms/{id}
-
-get     api/extensions          čti vše
-post    api/extensions          nový
-get     api/extensions/{id}     detail
-delete  api/extensions/{id}     smazat
-put     api/extensions/{id}     update
-
-api/group-name/{id}
-
-api/cdrs/
-api/cdrs/{id}
-api/cdrs/postpaid/
-api/cdrs/postpaid/data
+todo:
+    chyba integrity při mazání

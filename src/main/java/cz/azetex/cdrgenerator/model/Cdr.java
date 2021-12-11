@@ -41,6 +41,7 @@ public class Cdr {
 
     private String description;
 
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String value;
 
     @CreationTimestamp

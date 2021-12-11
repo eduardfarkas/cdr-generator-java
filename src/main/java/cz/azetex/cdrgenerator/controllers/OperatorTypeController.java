@@ -19,9 +19,19 @@ public class OperatorTypeController {
 
     }
 
-    @PutMapping("/operator-types/create")
+    @PostMapping("/operator-types")
     public ResponseDto createOperatorType(@RequestParam String name) {
         return operatorTypeFacade.createOperatorType(name);
     }
 
+    @PutMapping("/operator-types/{id}")
+    public ResponseDto updateOperatorType(@PathVariable Long id,
+                                          @RequestParam String name) {
+        return operatorTypeFacade.updateOperatorType(id, name);
+    }
+
+    @DeleteMapping("/operator-types/{id}")
+    public ResponseDto deleteOperatorType(@PathVariable Long id) {
+        return operatorTypeFacade.deleteOperatorType(id);
+    }
 }

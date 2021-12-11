@@ -16,23 +16,28 @@ public class CdrServiceImpl implements CdrService {
     private final CdrRepository cdrRepository;
 
     @Override
-    public Page<Cdr> findCdrs(String operatorTypeName, String dataTypeName, Pageable pageable) {
-
-        if(operatorTypeName == null && dataTypeName != null) {
-            return cdrRepository.findCdrsByDataTypeName(dataTypeName, pageable);
-        }
-        if(operatorTypeName != null && dataTypeName == null) {
-            return cdrRepository.findCdrsByOperatorName(operatorTypeName, pageable);
-        }
-        if(operatorTypeName != null && dataTypeName != null) {
-            return cdrRepository.findCdrsByOperatorTypeNameAndDataTypeName(operatorTypeName, dataTypeName, pageable);
-        }
-
-        return cdrRepository.findAllCdrs(pageable);
+    public Page<Cdr> findCdrs(String operatorTypeName, String dataTypeName, String chargingClass, String chargingCode, Boolean isUsed, Pageable pageable) {
+        return cdrRepository.findCdrsByCondition(operatorTypeName, dataTypeName, chargingClass, chargingCode, isUsed, pageable);
     }
 
     @Override
     public Optional<Cdr> findById(Long id) {
         return cdrRepository.findById(id);
     }
+
+    @Override
+    public void deleteCdr(Cdr cdr) {
+        cdrRepository.delete(cdr);
+    }
+
+    @Override
+    public Cdr saveCdr(Cdr cdr) {
+        return cdrRepository.save(cdr);
+    }
+
+    @Override
+    public Cdr updateCdr(Cdr cdr) {
+        return cdrRepository.save(cdr);
+    }
+
 }

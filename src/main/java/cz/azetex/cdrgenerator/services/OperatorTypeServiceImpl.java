@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,13 +20,22 @@ public class OperatorTypeServiceImpl implements OperatorTypeService {
     }
 
     @Override
-    public OperatorType saveOperatorType(String name) {
-        OperatorType operatorType = new OperatorType();
+    public OperatorType saveOperatorType(OperatorType operatorType) {
+        return operatorTypeRepository.save(operatorType);
+    }
 
-        operatorType.setName(name);
-        operatorTypeRepository.save(operatorType);
+    @Override
+    public OperatorType updateOperatorType(OperatorType operatorType) {
+        return operatorTypeRepository.save(operatorType);
+    }
 
-        return operatorType;
+    @Override
+    public void deleteOperator(OperatorType operatorType) {
+        operatorTypeRepository.delete(operatorType);
+    }
 
+    @Override
+    public Optional<OperatorType> findById(Long id) {
+        return operatorTypeRepository.findById(id);
     }
 }

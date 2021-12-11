@@ -1,16 +1,19 @@
 spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:h2:mem:test
-        username: cdr_dev_user
+        url: jdbc:mysql://localhost:3306/cdr_preprod
+        username: cdr_preprod_user
         password: password
-    sql:
-        init:
-            platform: mysql
+#    sql:
+#        init:
+#            platform: mysql
     jpa:
         hibernate:
             ddl-auto: validate
             use-new-id-generator-mappings: false
+#        properties:
+#            hibernate:
+#                dialect: org.hibernate.dialect.MySQL
         database-platform: org.hibernate.dialect.MySQL8Dialect
         database: mysql
 
