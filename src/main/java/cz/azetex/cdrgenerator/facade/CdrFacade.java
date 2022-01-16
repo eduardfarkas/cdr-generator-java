@@ -7,8 +7,14 @@ import cz.azetex.cdrgenerator.error.*;
 import cz.azetex.cdrgenerator.i18n.Message;
 import cz.azetex.cdrgenerator.mapping.enumeration.CdrDetailMapping;
 import cz.azetex.cdrgenerator.mapping.enumeration.CdrMapping;
-import cz.azetex.cdrgenerator.model.*;
-import cz.azetex.cdrgenerator.services.*;
+import cz.azetex.cdrgenerator.model.Cdr;
+import cz.azetex.cdrgenerator.model.Extension;
+import cz.azetex.cdrgenerator.model.Group;
+import cz.azetex.cdrgenerator.model.enums.DataType;
+import cz.azetex.cdrgenerator.model.enums.OperatorType;
+import cz.azetex.cdrgenerator.services.CdrService;
+import cz.azetex.cdrgenerator.services.ExtensionService;
+import cz.azetex.cdrgenerator.services.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -22,8 +28,6 @@ public class CdrFacade {
 
     private final CdrService cdrService;
     private final GroupService groupService;
-    private final OperatorTypeService operatorTypeService;
-    private final DataTypeService dataTypeService;
     private final ExtensionService extensionService;
     private final CdrMapping cdrMapping;
     private final CdrDetailMapping cdrDetailMapping;
@@ -39,12 +43,12 @@ public class CdrFacade {
         return responseDto;
     }
 
-    public ResponseDto getCdrs(String operatorTypeName, String dataTypeName, String chargingClass, String chargingCode, Boolean isUsed, int page, int pageSize) {
+    public ResponseDto getCdrs(String operatorType, String dataType, String chargingClass, String chargingCode, Boolean isUsed, int page, int pageSize) {
         ResponseDto responseDto = new ResponseDto();
 
         PageRequest pageable = PageRequest.of(page, pageSize);
 
-        Page<Cdr> result = cdrService.findCdrs(operatorTypeName, dataTypeName, chargingClass, chargingCode, isUsed, pageable);
+        Page<Cdr> result = cdrService.findCdrs(operatorType, dataType, chargingClass, chargingCode, isUsed, pageable);
         result.stream()
                 .map(cdrMapping::toDto)
                 .forEach(responseDto.getData().getCdrs()::add);
@@ -70,15 +74,13 @@ public class CdrFacade {
     }
 
     public ResponseDto createCdr(String name, String description, String value, Long groupId,
-                                 Long extensionId, Long dataTypeId, Long operatorTypeId,
+                                 Long extensionId, String dataType, String operatorType,
                                  String chargingClass, String chargingCode, Boolean isUsed) {
 
         ResponseDto responseDto = new ResponseDto();
 
         Group group = groupService.findById(groupId).orElseThrow(() -> new GroupDoesNotExistException(msg.getText("error.groupDoesNotExist", groupId)));
         Extension extension = extensionService.findById(extensionId).orElseThrow(() -> new ExtensionDoesNotExistException(msg.getText("error.extensionDoesNotExist", extensionId)));
-        DataType dataType = dataTypeService.findById(dataTypeId).orElseThrow(() -> new DataTypeDoesNotExistException(msg.getText("error.dataTypeDoesNotExist", dataTypeId)));
-        OperatorType operatorType = operatorTypeService.findById(operatorTypeId).orElseThrow(() -> new OperatorTypeDoesNotExistException(msg.getText("error.operatorTypeDoesNotExist", operatorTypeId)));
 
         try {
             Cdr newCdr = new Cdr();
@@ -87,8 +89,8 @@ public class CdrFacade {
             newCdr.setValue(value);
             newCdr.setGroup(group);
             newCdr.setExtension(extension);
-            newCdr.setDataType(dataType);
-            newCdr.setOperatorType(operatorType);
+            newCdr.setDataType(DataType.of(dataType).getName());
+            newCdr.setOperatorType(OperatorType.of(operatorType).getName());
             newCdr.setChargingClass(chargingClass);
             newCdr.setChargingCode(chargingCode);
             newCdr.setIsUsed(isUsed);
@@ -104,7 +106,7 @@ public class CdrFacade {
     }
 
     public ResponseDto updateCdr(Long id, String name, String description, String value, Long groupId,
-                                      Long extensionId, Long dataTypeId, Long operatorTypeId,
+                                      Long extensionId, String dataType, String operatorType,
                                       String chargingClass, String chargingCode, Boolean isUsed) {
         ResponseDto responseDto = new ResponseDto();
 
@@ -112,16 +114,14 @@ public class CdrFacade {
 
         Group group = groupService.findById(groupId).orElseThrow(() -> new GroupDoesNotExistException(msg.getText("error.groupDoesNotExist", groupId)));
         Extension extension = extensionService.findById(extensionId).orElseThrow(() -> new ExtensionDoesNotExistException(msg.getText("error.extensionDoesNotExist", extensionId)));
-        DataType dataType = dataTypeService.findById(dataTypeId).orElseThrow(() -> new DataTypeDoesNotExistException(msg.getText("error.dataTypeDoesNotExist", dataTypeId)));
-        OperatorType operatorType = operatorTypeService.findById(operatorTypeId).orElseThrow(() -> new OperatorTypeDoesNotExistException(msg.getText("error.operatorTypeDoesNotExist", operatorTypeId)));
 
         cdr.setName(name);
         cdr.setDescription(description);
         cdr.setValue(value);
         cdr.setGroup(group);
         cdr.setExtension(extension);
-        cdr.setDataType(dataType);
-        cdr.setOperatorType(operatorType);
+        cdr.setDataType(DataType.of(dataType).getName());
+        cdr.setOperatorType(OperatorType.of(operatorType).getName());
         cdr.setChargingClass(chargingClass);
         cdr.setChargingCode(chargingCode);
         cdr.setIsUsed(isUsed);

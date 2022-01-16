@@ -13,8 +13,8 @@ public class CdrDto {
     protected String value;
     protected String chargingClass;
     protected String chargingCode;
-    protected String operatorTypeName;
-    protected String dataTypeName;
+    protected String operatorType;
+    protected String dataType;
     protected String extensionName;
     protected String groupName;
     protected Boolean isUsed;

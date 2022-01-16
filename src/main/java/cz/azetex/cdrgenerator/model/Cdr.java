@@ -1,6 +1,7 @@
 package cz.azetex.cdrgenerator.model;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -19,11 +20,9 @@ public class Cdr {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private OperatorType operatorType;
+    private String operatorType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private DataType dataType;
+    private String dataType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Extension extension;
