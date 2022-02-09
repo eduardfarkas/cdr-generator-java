@@ -1,5 +1,6 @@
 package cz.azetex.cdrgenerator.facade;
 
+import cz.azetex.cdrgenerator.controllers.parameter.CdrParams;
 import cz.azetex.cdrgenerator.dto.PaginationDto;
 import cz.azetex.cdrgenerator.dto.ResponseDto;
 import cz.azetex.cdrgenerator.dto.ResponseInformationDto;
@@ -73,33 +74,33 @@ public class CdrFacade {
         responseDto.setMeta(responseInformationDto);
     }
 
-    public ResponseDto createCdr(String name, String description, String value, Long groupId,
-                                 Long extensionId, String dataType, String operatorType,
-                                 String chargingClass, String chargingCode, Boolean isUsed) {
+    public ResponseDto createCdr(CdrParams cdrParams) {
 
         ResponseDto responseDto = new ResponseDto();
 
-        Group group = groupService.findById(groupId).orElseThrow(() -> new GroupDoesNotExistException(msg.getText("error.groupDoesNotExist", groupId)));
-        Extension extension = extensionService.findById(extensionId).orElseThrow(() -> new ExtensionDoesNotExistException(msg.getText("error.extensionDoesNotExist", extensionId)));
+        Group group = groupService.findById(cdrParams.getGroupId())
+            .orElseThrow(() -> new GroupDoesNotExistException(msg.getText("error.groupDoesNotExist", cdrParams.getGroupId())));
+        Extension extension = extensionService.findById(cdrParams.getExtensionId())
+            .orElseThrow(() -> new ExtensionDoesNotExistException(msg.getText("error.extensionDoesNotExist", cdrParams.getExtensionId())));
 
         try {
             Cdr newCdr = new Cdr();
-            newCdr.setName(name);
-            newCdr.setDescription(description);
-            newCdr.setValue(value);
+            newCdr.setName(cdrParams.getName());
+            newCdr.setDescription(cdrParams.getDescription());
+            newCdr.setValue(cdrParams.getValue());
             newCdr.setGroup(group);
             newCdr.setExtension(extension);
-            newCdr.setDataType(DataType.of(dataType).getName());
-            newCdr.setOperatorType(OperatorType.of(operatorType).getName());
-            newCdr.setChargingClass(chargingClass);
-            newCdr.setChargingCode(chargingCode);
-            newCdr.setIsUsed(isUsed);
+            newCdr.setDataType(cdrParams.getDataType().getName());
+            newCdr.setOperatorType(cdrParams.getOperatorType().getName());
+            newCdr.setChargingClass(cdrParams.getChargingClass());
+            newCdr.setChargingCode(cdrParams.getChargingCode());
+            newCdr.setIsUsed(cdrParams.getIsUsed());
 
             Cdr savedCdr = cdrService.saveCdr(newCdr);
 
             responseDto.getData().getCdrs().add(cdrMapping.toDto(savedCdr));
         } catch(DataIntegrityViolationException e) {
-            throw new CdrAlreadyExistsException(msg.getText("error.cdrAlreadyExists", name));
+            throw new CdrAlreadyExistsException(msg.getText("error.cdrAlreadyExists", cdrParams.getName()));
         }
 
         return responseDto;

@@ -1,5 +1,6 @@
 package cz.azetex.cdrgenerator.controllers;
 
+import cz.azetex.cdrgenerator.controllers.parameter.CdrParams;
 import cz.azetex.cdrgenerator.dto.ResponseDto;
 import cz.azetex.cdrgenerator.error.BadRequestException;
 import cz.azetex.cdrgenerator.facade.CdrFacade;
@@ -7,8 +8,17 @@ import cz.azetex.cdrgenerator.model.enums.DataType;
 import cz.azetex.cdrgenerator.model.enums.OperatorType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.DataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.beans.PropertyEditorSupport;
 import java.util.EnumSet;
 
@@ -24,9 +34,11 @@ public class CdrController {
         webDataBinder.registerCustomEditor(OperatorType.class, new PropertyEditorSupport() {
             @Override
             public void setAsText(String text) throws IllegalArgumentException {
+                System.out.println("jsem tu xxx");
                 if (text == null || text.isBlank()) {
                     throw new IllegalArgumentException("Prázdná nebo nevalidní hodnota typu operátora"); //TODO
                 }
+                System.out.println("asd asd");
                 setValue(OperatorType.of(text));
             }
         });
@@ -62,21 +74,13 @@ public class CdrController {
     }
 
     @PostMapping("/cdrs")
-    public ResponseDto createCdr(@RequestParam String name,
-                                 @RequestParam(required = false) String description,
-                                 @RequestParam String value,
-                                 @RequestParam Long groupId,
-                                 @RequestParam Long extensionId,
-                                 @RequestParam DataType dataType,
-                                 @RequestParam OperatorType operatorType,
-                                 @RequestParam String chargingClass,
-                                 @RequestParam String chargingCode,
-                                 @RequestParam Boolean isUsed) {
+    public ResponseDto createCdr(@Valid CdrParams cdrParams) {
+        System.out.println(cdrParams);
 
-        validateDataType(dataType);
-        validateOperatorType(operatorType);
-        return cdrFacade.createCdr(name, description, value, groupId, extensionId, dataType.getName(),
-                                    operatorType.getName(), chargingClass, chargingCode, isUsed);
+//        validateDataType(cdrParams.getDataType());
+//        validateOperatorType(cdrParams.getOperatorType());
+
+        return cdrFacade.createCdr(cdrParams);
     }
 
     @PutMapping("/cdrs/{id}")
