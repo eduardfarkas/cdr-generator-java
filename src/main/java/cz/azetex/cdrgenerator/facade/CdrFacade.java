@@ -106,26 +106,26 @@ public class CdrFacade {
         return responseDto;
     }
 
-    public ResponseDto updateCdr(Long id, String name, String description, String value, Long groupId,
-                                      Long extensionId, String dataType, String operatorType,
-                                      String chargingClass, String chargingCode, Boolean isUsed) {
+    public ResponseDto updateCdr(Long id, CdrParams cdrParams) {
         ResponseDto responseDto = new ResponseDto();
 
         Cdr cdr = cdrService.findById(id).orElseThrow(() -> new CdrDoesNotExistException(msg.getText("error.cdrDoesNotExist", id)));
 
-        Group group = groupService.findById(groupId).orElseThrow(() -> new GroupDoesNotExistException(msg.getText("error.groupDoesNotExist", groupId)));
-        Extension extension = extensionService.findById(extensionId).orElseThrow(() -> new ExtensionDoesNotExistException(msg.getText("error.extensionDoesNotExist", extensionId)));
+        Group group = groupService.findById(cdrParams.getGroupId())
+            .orElseThrow(() -> new GroupDoesNotExistException(msg.getText("error.groupDoesNotExist", cdrParams.getGroupId())));
+        Extension extension = extensionService.findById(cdrParams.getExtensionId())
+            .orElseThrow(() -> new ExtensionDoesNotExistException(msg.getText("error.extensionDoesNotExist", cdrParams.getExtensionId())));
 
-        cdr.setName(name);
-        cdr.setDescription(description);
-        cdr.setValue(value);
+        cdr.setName(cdrParams.getName());
+        cdr.setDescription(cdrParams.getDescription());
+        cdr.setValue(cdrParams.getValue());
         cdr.setGroup(group);
         cdr.setExtension(extension);
-        cdr.setDataType(DataType.of(dataType).getName());
-        cdr.setOperatorType(OperatorType.of(operatorType).getName());
-        cdr.setChargingClass(chargingClass);
-        cdr.setChargingCode(chargingCode);
-        cdr.setIsUsed(isUsed);
+        cdr.setDataType(cdrParams.getDataType().getName());
+        cdr.setOperatorType(cdrParams.getOperatorType().getName());
+        cdr.setChargingClass(cdrParams.getChargingClass());
+        cdr.setChargingCode(cdrParams.getChargingCode());
+        cdr.setIsUsed(cdrParams.getIsUsed());
 
         cdrService.saveCdr(cdr);
 

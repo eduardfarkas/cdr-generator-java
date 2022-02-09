@@ -1,42 +1,46 @@
 package cz.azetex.cdrgenerator.controllers.parameter;
 
+import cz.azetex.cdrgenerator.i18n.Message;
 import cz.azetex.cdrgenerator.model.enums.DataType;
 import cz.azetex.cdrgenerator.model.enums.OperatorType;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Data
 @Accessors(chain = true)
 public class CdrParams {
 
-    @NotNull(message = "Chybí parametr name")
+    @NotBlank(message = "Parameter 'name' is missing")
     private String name;
 
     private String description;
 
-    @NotNull(message = "Chybí parametr value")
+    @NotBlank(message = "Parameter 'value' is missing")
     private String value;
 
-    @NotNull(message = "Chybí parametr groupId")
+    @NotNull(message = "Parameter 'groupId' is missing")
     private Long groupId;
 
-    @NotNull(message = "Chybí parametr extensionId")
+    @NotNull(message = "Parameter 'extensionId' is missing")
     private Long extensionId;
 
-    @NotNull(message = "Chybí parametr dataType")
+    @NotNull(message = "Parameter 'dataType' is missing")
     private DataType dataType;
 
-    @NotNull(message = "Chybí parametr operatorType")
+    @NotNull(message = "Parameter 'operatorType' is missing")
     private OperatorType operatorType;
 
-    @NotNull(message = "Chybí parametr chargingClass")
+    @NotBlank(message = "Parameter 'chargingClass' is missing")
     private String chargingClass;
 
-    @NotNull(message = "Chybí parametr chargingCode")
+    @NotBlank(message = "Parameter 'chargingCode' is missing")
     private String chargingCode;
 
-    @NotNull(message = "Chybí parametr isUsed")
+    @NotNull(message = "Parameter 'isUsed' is missing")
     private Boolean isUsed;
 }
