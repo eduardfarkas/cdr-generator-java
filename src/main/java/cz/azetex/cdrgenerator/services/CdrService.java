@@ -1,6 +1,8 @@
 package cz.azetex.cdrgenerator.services;
 
 import cz.azetex.cdrgenerator.model.Cdr;
+import cz.azetex.cdrgenerator.model.enums.DataType;
+import cz.azetex.cdrgenerator.model.enums.OperatorType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -8,7 +10,8 @@ import java.util.Optional;
 
 public interface CdrService {
 
-    Page<Cdr> findCdrs(String operatorTypeName, String dataTypeName, String chargingClass, String chargingCode, Boolean isUsed, Pageable pageable);
+    Page<Cdr> findCdrs(OperatorType operatorTypeName, DataType dataTypeName, String chargingClass, String chargingCode, Boolean isUsed,
+                       Pageable pageable);
 
     Optional<Cdr> findById(Long id);
 

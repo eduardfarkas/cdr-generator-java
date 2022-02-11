@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.text.MessageFormat.format;
 

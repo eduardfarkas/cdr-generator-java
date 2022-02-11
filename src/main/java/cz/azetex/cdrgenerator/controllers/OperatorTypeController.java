@@ -2,8 +2,7 @@ package cz.azetex.cdrgenerator.controllers;
 
 import cz.azetex.cdrgenerator.dto.ResponseDto;
 import cz.azetex.cdrgenerator.facade.DataTypeFacade;
-import cz.azetex.cdrgenerator.services.DataTypeService;
-import cz.azetex.cdrgenerator.services.OperatorTypeService;
+import cz.azetex.cdrgenerator.facade.OperatorTypeFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,14 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class DataTypeController {
+public class OperatorTypeController {
 
-    private final DataTypeFacade dataTypeFacade;
+    private final OperatorTypeFacade operatorTypeFacade;
 
-    @GetMapping("/data-types")
-    public ResponseDto listAllDataTypes() {
+    @GetMapping("/operator-types")
+    public ResponseDto listAllOperatorTypes() {
 
-        return dataTypeFacade.findAllDataTypes();
+        return operatorTypeFacade.findAllOperatorTypes();
 
     }
+
 }

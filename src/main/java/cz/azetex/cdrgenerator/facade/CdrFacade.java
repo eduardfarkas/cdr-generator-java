@@ -44,7 +44,8 @@ public class CdrFacade {
         return responseDto;
     }
 
-    public ResponseDto getCdrs(String operatorType, String dataType, String chargingClass, String chargingCode, Boolean isUsed, int page, int pageSize) {
+    public ResponseDto getCdrs(OperatorType operatorType, DataType dataType, String chargingClass, String chargingCode, Boolean isUsed, int page,
+                               int pageSize) {
         ResponseDto responseDto = new ResponseDto();
 
         PageRequest pageable = PageRequest.of(page, pageSize);

@@ -3,6 +3,8 @@ package cz.azetex.cdrgenerator.controllers;
 import cz.azetex.cdrgenerator.controllers.parameter.CdrParams;
 import cz.azetex.cdrgenerator.dto.ResponseDto;
 import cz.azetex.cdrgenerator.facade.CdrFacade;
+import cz.azetex.cdrgenerator.model.enums.DataType;
+import cz.azetex.cdrgenerator.model.enums.OperatorType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +26,8 @@ public class CdrController {
     public final CdrFacade cdrFacade;
 
     @GetMapping("/cdrs")
-    public ResponseDto listAllCdrsByCondition(@RequestParam(required = false) String operatorType,
-                                              @RequestParam(required = false) String dataType,
+    public ResponseDto listAllCdrsByCondition(@RequestParam(required = false) OperatorType operatorType,
+                                              @RequestParam(required = false) DataType dataType,
                                               @RequestParam(required = false) String chargingClass,
                                               @RequestParam(required = false) String chargingCode,
                                               @RequestParam(required = false) Boolean isUsed,

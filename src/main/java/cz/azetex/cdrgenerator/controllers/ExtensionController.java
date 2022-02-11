@@ -21,14 +21,14 @@ public class ExtensionController {
 
     @PostMapping("/extensions")
     public ResponseDto createExtension(@RequestParam String name,
-                                          @RequestParam String description) {
+                                       @RequestParam String description) {
         return extensionFacade.createExtension(name, description);
     }
 
     @PutMapping("/extensions/{id}")
     public ResponseDto updateExtension(@PathVariable Long id,
-                                          @RequestParam String name,
-                                          @RequestParam(required = false) String description) {
+                                       @RequestParam String name,
+                                       @RequestParam(required = false) String description) {
         return extensionFacade.updateExtension(id, name, description);
     }
 
