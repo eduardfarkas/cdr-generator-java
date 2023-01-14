@@ -6,6 +6,7 @@ import cz.azetex.cdrgenerator.facade.CdrFacade;
 import cz.azetex.cdrgenerator.model.enums.DataType;
 import cz.azetex.cdrgenerator.model.enums.OperatorType;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import javax.validation.Valid;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
+@CrossOrigin
 public class CdrController {
 
     public final CdrFacade cdrFacade;

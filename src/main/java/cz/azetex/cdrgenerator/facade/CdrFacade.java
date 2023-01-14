@@ -39,7 +39,7 @@ public class CdrFacade {
                 .orElseThrow(() -> new CdrDoesNotExistException(msg.getText("error.cdrDoesNotExist", id)));
 
         ResponseDto responseDto = new ResponseDto();
-        responseDto.getData().getCdr().add(cdrDetailMapping.toDto(cdr));
+        responseDto.getData().add(cdrDetailMapping.toDto(cdr));
 
         return responseDto;
     }
@@ -53,7 +53,7 @@ public class CdrFacade {
         Page<Cdr> result = cdrService.findCdrs(operatorType, dataType, chargingClass, chargingCode, isUsed, pageable);
         result.stream()
                 .map(cdrMapping::toDto)
-                .forEach(responseDto.getData().getCdrs()::add);
+                .forEach(responseDto.getData()::add);
 
         setPageInfo(responseDto, result);
 
@@ -99,7 +99,7 @@ public class CdrFacade {
 
             Cdr savedCdr = cdrService.saveCdr(newCdr);
 
-            responseDto.getData().getCdrs().add(cdrMapping.toDto(savedCdr));
+            responseDto.getData().add(cdrMapping.toDto(savedCdr));
         } catch(DataIntegrityViolationException e) {
             throw new CdrAlreadyExistsException(msg.getText("error.cdrAlreadyExists", cdrParams.getName()));
         }
@@ -130,7 +130,7 @@ public class CdrFacade {
 
         cdrService.saveCdr(cdr);
 
-        responseDto.getData().getCdrs().add(cdrMapping.toDto(cdr));
+        responseDto.getData().add(cdrMapping.toDto(cdr));
 
         return responseDto;
     }
@@ -142,7 +142,7 @@ public class CdrFacade {
 
         cdrService.deleteCdr(cdr);
 
-        responseDto.getData().setMessage(msg.getText("message.cdrDeleted", id));
+        responseDto.getData().add(msg.getText("message.cdrDeleted", id));
         return responseDto;
     }
 }

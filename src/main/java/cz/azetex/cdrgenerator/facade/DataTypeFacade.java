@@ -22,7 +22,7 @@ public class DataTypeFacade {
         List<String> dataTypeList = dataTypeServiceService.findAllDataTypes();
 
         dataTypeList.stream()
-            .forEach(responseDto.getData().getDataTypes()::add);
+            .forEach(responseDto.getData()::add);
 
         return responseDto;
     }

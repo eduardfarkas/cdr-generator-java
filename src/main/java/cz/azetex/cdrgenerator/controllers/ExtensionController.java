@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
+@CrossOrigin
 public class ExtensionController {
 
     private final ExtensionFacade extensionFacade;
+
 
     @GetMapping("/extensions")
     public ResponseDto listAllExtensions() {

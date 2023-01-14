@@ -29,7 +29,7 @@ public class ExtensionFacade {
 
         extensionList.stream()
                 .map(extensionMapping::toDto)
-                .forEach(responseDto.getData().getExtensions()::add);
+                .forEach(responseDto.getData()::add);
 
         return responseDto;
     }
@@ -44,7 +44,7 @@ public class ExtensionFacade {
 
             Extension savedExtension = extensionService.saveExtension(newExtension);
 
-            responseDto.getData().getExtensions().add(extensionMapping.toDto(savedExtension));
+            responseDto.getData().add(extensionMapping.toDto(savedExtension));
         } catch(DataIntegrityViolationException e) {
             throw new ExtensionAlreadyExistsException(msg.getText("error.extensionAlreadyExists", name));
         }
@@ -62,7 +62,7 @@ public class ExtensionFacade {
 
         extensionService.saveExtension(extension);
 
-        responseDto.getData().getExtensions().add(extensionMapping.toDto(extension));
+        responseDto.getData().add(extensionMapping.toDto(extension));
 
         return responseDto;
     }
@@ -78,7 +78,7 @@ public class ExtensionFacade {
             throw new ExtensionIsUsedException(msg.getText("error.extensionIsUsed", extension.getName()));
         }
 
-        responseDto.getData().setMessage(msg.getText("message.extensionDeleted", id));
+        responseDto.getData().add(msg.getText("message.extensionDeleted", id));
         return responseDto;
     }
 }

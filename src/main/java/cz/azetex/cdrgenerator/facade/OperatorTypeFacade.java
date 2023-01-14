@@ -20,7 +20,7 @@ public class OperatorTypeFacade {
         List<String> operatorTypeList = operatorTypeService.findAllOperatorTypes();
 
         operatorTypeList.stream()
-            .forEach(responseDto.getData().getOperatorTypes()::add);
+            .forEach(responseDto.getData()::add);
 
         return responseDto;
     }

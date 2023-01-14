@@ -30,7 +30,7 @@ public class GroupFacade {
 
         groupList.stream()
                 .map(groupMapping::toDto)
-                .forEach(responseDto.getData().getGroups()::add);
+                .forEach(responseDto.getData()::add);
 
         return responseDto;
     }
@@ -44,7 +44,7 @@ public class GroupFacade {
 
             Group savedGroup = groupService.saveGroup(newGroup);
 
-            responseDto.getData().getGroups().add(groupMapping.toDto(savedGroup));
+            responseDto.getData().add(groupMapping.toDto(savedGroup));
         } catch(DataIntegrityViolationException e) {
             throw new GroupAlreadyExistsException(msg.getText("error.groupAlreadyExists", name));
         }
@@ -61,7 +61,7 @@ public class GroupFacade {
 
         groupService.saveGroup(group);
 
-        responseDto.getData().getGroups().add(groupMapping.toDto(group));
+        responseDto.getData().add(groupMapping.toDto(group));
 
         return responseDto;
     }
@@ -77,7 +77,7 @@ public class GroupFacade {
             throw new GroupIsUsedException(msg.getText("error.groupIsUsed", group.getName()));
         }
 
-        responseDto.getData().setMessage(msg.getText("message.groupDeleted", id));
+        responseDto.getData().add(msg.getText("message.groupDeleted", id));
         return responseDto;
     }
 }
