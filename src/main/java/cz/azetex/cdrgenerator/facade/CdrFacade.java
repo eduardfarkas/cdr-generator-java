@@ -3,7 +3,6 @@ package cz.azetex.cdrgenerator.facade;
 import cz.azetex.cdrgenerator.controllers.parameter.CdrParams;
 import cz.azetex.cdrgenerator.dto.PaginationDto;
 import cz.azetex.cdrgenerator.dto.ResponseDto;
-import cz.azetex.cdrgenerator.dto.ResponseInformationDto;
 import cz.azetex.cdrgenerator.error.*;
 import cz.azetex.cdrgenerator.i18n.Message;
 import cz.azetex.cdrgenerator.mapping.enumeration.CdrDetailMapping;
@@ -44,13 +43,14 @@ public class CdrFacade {
         return responseDto;
     }
 
-    public ResponseDto getCdrs(OperatorType operatorType, DataType dataType, String chargingClass, String chargingCode, Boolean isUsed, int page,
+    public ResponseDto getCdrs(OperatorType operatorType, DataType dataType, String chargingClass, String chargingCode,
+                               String extensionName, String groupName, Boolean isUsed, int page,
                                int pageSize) {
         ResponseDto responseDto = new ResponseDto();
 
         PageRequest pageable = PageRequest.of(page, pageSize);
 
-        Page<Cdr> result = cdrService.findCdrs(operatorType, dataType, chargingClass, chargingCode, isUsed, pageable);
+        Page<Cdr> result = cdrService.findCdrs(operatorType, dataType, chargingClass, chargingCode, extensionName, groupName, isUsed, pageable);
         result.stream()
                 .map(cdrMapping::toDto)
                 .forEach(responseDto.getData()::add);
@@ -70,9 +70,7 @@ public class CdrFacade {
             paginationDto.setPageSize(pageable.getPageSize());
         }
 
-        ResponseInformationDto responseInformationDto = new ResponseInformationDto();
-        responseInformationDto.setPagination(paginationDto);
-        responseDto.setMeta(responseInformationDto);
+        responseDto.setPagination(paginationDto);
     }
 
     public ResponseDto createCdr(CdrParams cdrParams) {
@@ -142,7 +140,8 @@ public class CdrFacade {
 
         cdrService.deleteCdr(cdr);
 
-        responseDto.getData().add(msg.getText("message.cdrDeleted", id));
+//        responseDto.getData().add(msg.getText("message.cdrDeleted", id));
+        responseDto.getData().add(cdr);
         return responseDto;
     }
 }

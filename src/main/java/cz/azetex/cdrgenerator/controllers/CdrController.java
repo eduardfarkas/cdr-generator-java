@@ -3,6 +3,7 @@ package cz.azetex.cdrgenerator.controllers;
 import cz.azetex.cdrgenerator.controllers.parameter.CdrParams;
 import cz.azetex.cdrgenerator.dto.ResponseDto;
 import cz.azetex.cdrgenerator.facade.CdrFacade;
+import cz.azetex.cdrgenerator.model.Extension;
 import cz.azetex.cdrgenerator.model.enums.DataType;
 import cz.azetex.cdrgenerator.model.enums.OperatorType;
 import lombok.RequiredArgsConstructor;
@@ -32,11 +33,13 @@ public class CdrController {
                                               @RequestParam(required = false) DataType dataType,
                                               @RequestParam(required = false) String chargingClass,
                                               @RequestParam(required = false) String chargingCode,
+                                              @RequestParam(required = false) String extensionName,
+                                              @RequestParam(required = false) String groupName,
                                               @RequestParam(required = false) Boolean isUsed,
                                               @RequestParam int page,
                                               @RequestParam int pageSize) {
 
-        return cdrFacade.getCdrs(operatorType, dataType, chargingClass, chargingCode, isUsed, page, pageSize);
+        return cdrFacade.getCdrs(operatorType, dataType, chargingClass, chargingCode, extensionName, groupName, isUsed, page, pageSize);
     }
 
     @GetMapping("/cdrs/{id}")

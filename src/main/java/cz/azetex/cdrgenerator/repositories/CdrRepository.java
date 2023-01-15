@@ -16,14 +16,25 @@ public interface CdrRepository extends JpaRepository<Cdr, Long> {
                        "and (?2 IS NULL OR (c.dataType = ?2))" +
                        "and (?3 IS NULL OR (c.chargingClass = ?3))" +
                        "and (?4 IS NULL OR (c.chargingCode = ?4))" +
-                       "and (?5 IS NULL OR (c.isUsed = ?5))",
+                       "and (?5 IS NULL OR (c.extension.name = ?5))" +
+                       "and (?6 IS NULL OR (c.group.name = ?6))" +
+                       "and (?7 IS NULL OR (c.isUsed = ?7))",
             countQuery = "select count(c) " +
                          "from Cdr c " +
                          "where (?1 IS NULL OR (c.operatorType = ?1))" +
                             "and (?2 IS NULL OR (c.dataType = ?2))" +
                             "and (?3 IS NULL OR (c.chargingClass = ?3))" +
                             "and (?4 IS NULL OR (c.chargingCode = ?4))" +
-                            "and (?5 IS NULL OR (c.isUsed = ?5))")
-    Page<Cdr> findCdrsByCondition(String operatorTypeName, String dataTypeName, String chargingClass, String chargingCode, Boolean isUsed, Pageable pageable);
+                            "and (?5 IS NULL OR (c.extension.name = ?5))" +
+                            "and (?6 IS NULL OR (c.group.name = ?6))" +
+                            "and (?7 IS NULL OR (c.isUsed = ?7))")
+    Page<Cdr> findCdrsByCondition(String operatorTypeName,
+                                  String dataTypeName,
+                                  String chargingClass,
+                                  String chargingCode,
+                                  String extensionName,
+                                  String groupName,
+                                  Boolean isUsed,
+                                  Pageable pageable);
 
 }

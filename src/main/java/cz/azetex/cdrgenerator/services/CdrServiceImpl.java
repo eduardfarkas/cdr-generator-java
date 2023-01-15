@@ -23,6 +23,8 @@ public class CdrServiceImpl implements CdrService {
         DataType dataTypeName,
         String chargingClass,
         String chargingCode,
+        String extensionName,
+        String groupName,
         Boolean isUsed,
         Pageable pageable
     ) {
@@ -31,6 +33,8 @@ public class CdrServiceImpl implements CdrService {
             (dataTypeName != null) ? dataTypeName.getName() : null,
             chargingClass,
             chargingCode,
+            extensionName,
+            groupName,
             isUsed,
             pageable
         );

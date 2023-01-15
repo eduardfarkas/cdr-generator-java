@@ -77,7 +77,8 @@ public class GroupFacade {
             throw new GroupIsUsedException(msg.getText("error.groupIsUsed", group.getName()));
         }
 
-        responseDto.getData().add(msg.getText("message.groupDeleted", id));
+//        responseDto.getData().add(msg.getText("message.groupDeleted", id));
+        responseDto.getData().add(group);
         return responseDto;
     }
 }

@@ -10,7 +10,8 @@ import java.util.Optional;
 
 public interface CdrService {
 
-    Page<Cdr> findCdrs(OperatorType operatorTypeName, DataType dataTypeName, String chargingClass, String chargingCode, Boolean isUsed,
+    Page<Cdr> findCdrs(OperatorType operatorTypeName, DataType dataTypeName, String chargingClass, String chargingCode, String extensionName,
+                       String groupName, Boolean isUsed,
                        Pageable pageable);
 
     Optional<Cdr> findById(Long id);

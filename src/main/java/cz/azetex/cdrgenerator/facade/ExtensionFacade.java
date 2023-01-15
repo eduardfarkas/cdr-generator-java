@@ -78,7 +78,8 @@ public class ExtensionFacade {
             throw new ExtensionIsUsedException(msg.getText("error.extensionIsUsed", extension.getName()));
         }
 
-        responseDto.getData().add(msg.getText("message.extensionDeleted", id));
+//        responseDto.getData().add(msg.getText("message.extensionDeleted", id));
+        responseDto.getData().add(extension);
         return responseDto;
     }
 }

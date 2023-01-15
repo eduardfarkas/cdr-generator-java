@@ -8,12 +8,7 @@ import java.util.List;
 @Data
 public class ResponseDto {
 
-    protected ResponseInformationDto meta;
-//    protected DataDto data;
+    protected PaginationDto pagination;
     protected List<Object> data = new ArrayList<>();
-
-//    public ResponseDto() {
-//        this.data = new DataDto();
-//    }
 
 }
